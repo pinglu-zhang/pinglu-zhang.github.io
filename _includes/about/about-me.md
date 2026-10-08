@@ -15,4 +15,4 @@ I am conducting research on [Sequence Alignment](http://lab.malab.cn/~cjt/MSA/) 
 
 Researchers interested in collaboration are welcome to contact me at [zpl010720@gmail.com](mailto:zpl010720@gmail.com).
 
-[**Download CV (PDF)**]({{ '/cv/Pinglu_Zhang_Academic_CV.pdf' | relative_url }}) &nbsp;·&nbsp; [Word version]({{ '/cv/Pinglu_Zhang_Academic_CV.docx' | relative_url }})
+[**Download CV (PDF)**]({{ '/cv/Pinglu_Zhang_Academic_CV.pdf' | relative_url }})
