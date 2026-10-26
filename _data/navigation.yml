@@ -1,21 +1,27 @@
 # main links links
 main:
   - title: "About Me"
+    key: about
     url: "/#about-me"
 
   - title: "News"
+    key: news
     url: "/#-news"
 
   - title: "Fundings"
+    key: funding
     url: "/#-fundings"
 
   - title: "Publications"
+    key: publications
     url: "/#-publications"
 
   - title: "Awards"
+    key: awards
     url: "/#-awards"
 
   - title: "Educations"
+    key: education
     url: "/#-educations"
 
   # - title: "Invited Talks"

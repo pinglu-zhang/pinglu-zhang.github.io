@@ -1,4 +1,5 @@
 # 🔥 News
+{: id="-news"}
 - *2025.12.11*: &nbsp;🎉🎉 NSFC Young Student Basic Research Grant （国自然博士生项目）！
 - *2025.11.30*: &nbsp;🎉🎉 New article has been accepted by Genome Biology!
 - *2025.02.07*: &nbsp;🎉🎉 New article has been accepted by Genome Research!

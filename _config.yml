@@ -2,6 +2,8 @@
 title                    : "Pinglu Zhang (张平路)"
 description              : "Phd Student in UESTC. Focus on Sequence Alignment."
 repository               : "pinglu-zhang/pinglu-zhang.github.io"
+url                      : "https://pinglu-zhang.github.io"
+baseurl                  : ""
 google_scholar_stats_use_cdn : true
 
 # google analytics

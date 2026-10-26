@@ -3,10 +3,14 @@ permalink: /
 title: ""
 excerpt: ""
 author_profile: true
+lang: en
+bilingual: true
 redirect_from: 
   - /about/
   - /about.html
 ---
+
+{% assign ui = site.data.ui.en %}
 
 {% include about/about-me.md %}
 

@@ -3,7 +3,8 @@ layout: compress
 ---
 
 <!doctype html>
-<html lang="en" class="no-js">
+{% assign ui = site.data.ui[page.lang] | default: site.data.ui.en %}
+<html lang="{{ ui.html_lang }}" class="no-js"{% if page.bilingual %} data-bilingual="true" data-language-en="{{ '/' | relative_url }}" data-language-zh="{{ '/zh/' | relative_url }}"{% endif %}>
   <head>
     {% include head.html %}
     {% include head/custom.html %}

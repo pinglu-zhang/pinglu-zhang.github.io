@@ -1,0 +1,38 @@
+en:
+  html_lang: en
+  locale: en_US
+  home: Homepage
+  about: About Me
+  news: News
+  funding: Fundings
+  publications: Publications
+  awards: Awards
+  education: Educations
+  description: Phd Student in UESTC. Focus on Sequence Alignment.
+  location: Beijing, China
+  email: Email
+  scholar: Google Scholar
+  menu: Toggle navigation
+  language: Choose language
+  paper: Paper
+  code: Code
+  citations: Citations
+zh:
+  html_lang: zh-CN
+  locale: zh_CN
+  home: 主页
+  about: 关于我
+  news: 近期动态
+  funding: 科研资助
+  publications: 论文发表
+  awards: 荣誉奖励
+  education: 教育经历
+  description: 电子科技大学博士生，主要研究序列比对。
+  location: 中国，北京
+  email: 邮箱
+  scholar: 谷歌学术
+  menu: 展开或收起导航
+  language: 选择语言
+  paper: 论文
+  code: 代码
+  citations: 引用次数

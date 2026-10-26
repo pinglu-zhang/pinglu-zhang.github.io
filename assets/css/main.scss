@@ -107,3 +107,59 @@ h1:before, .anchor:before {
     background-color: #00369f;
     font-size: .8em;
 }
+
+/* Keep the language controls visible beside the existing overflow navigation. */
+[data-bilingual="true"] .masthead__menu {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+
+    .greedy-nav {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+}
+
+.language-switch {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    white-space: nowrap;
+    font-size: .9em;
+
+    a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 44px;
+        min-height: 44px;
+        color: $masthead-link-color;
+    }
+
+    a[aria-current="true"] {
+        color: $link-color;
+        font-weight: bold;
+        text-decoration: underline;
+        text-underline-offset: .25em;
+    }
+
+    a:hover, a:focus-visible {
+        color: $link-color;
+        text-decoration: underline;
+    }
+
+    a:focus-visible {
+        outline: 2px solid $link-color;
+        outline-offset: 1px;
+    }
+}
+
+.no-js [data-language-switch] { cursor: pointer; }
+[data-bilingual="true"] .page__content h1[id],
+[data-bilingual="true"] .page__content .anchor[id] {
+    scroll-margin-top: 80px;
+}
+.no-js .greedy-nav {
+    .visible-links { display: flex; flex-wrap: wrap; }
+    button { display: none; }
+}

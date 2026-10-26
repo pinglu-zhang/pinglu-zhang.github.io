@@ -1,5 +1,12 @@
 <meta charset="utf-8">
 
+{% if page.bilingual %}
+<script src="{{ '/assets/js/site-language.js' | relative_url }}"></script>
+<link rel="alternate" hreflang="en" href="{{ '/' | absolute_url }}">
+<link rel="alternate" hreflang="zh-CN" href="{{ '/zh/' | absolute_url }}">
+<link rel="alternate" hreflang="x-default" href="{{ '/' | absolute_url }}">
+{% endif %}
+
 {% include seo.html %}
 
 <meta name="HandheldFriendly" content="True">
@@ -11,9 +18,7 @@
 </script>
 
 <!-- For all browsers -->
-<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
 
 <meta http-equiv="cleartype" content="on">
-<head>
-  <base target="_blank">
-</head>
+<base target="_blank">

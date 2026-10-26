@@ -1,16 +1,23 @@
 <div class="masthead">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
-      <nav id="site-nav" class="greedy-nav">
-        <button><div class="navicon"></div></button>
+      <nav id="site-nav" class="greedy-nav" aria-label="{{ ui.home }}">
+        <button type="button" aria-label="{{ ui.menu }}" aria-controls="navigation-overflow"><div class="navicon"></div></button>
         <ul class="visible-links">
-          <li class="masthead__menu-item masthead__menu-item--lg masthead__menu-home-item"><a href="#about-me">Homepage</a></li>
+          <li class="masthead__menu-item masthead__menu-item--lg masthead__menu-home-item"><a href="#about-me" target="_self">{{ ui.home }}</a></li>
           {% for link in site.data.navigation.main %}
-            <li class="masthead__menu-item"><a href="{{ domain }}{{ link.url }}">{{ link.title }}</a></li>
+            <li class="masthead__menu-item"><a href="{{ link.url | remove_first: '/' }}" target="_self">{{ ui[link.key] | default: link.title }}</a></li>
           {% endfor %}
         </ul>
-        <ul class="hidden-links hidden"></ul>
+        <ul id="navigation-overflow" class="hidden-links hidden"></ul>
       </nav>
+      {% if page.bilingual %}
+      <div class="language-switch" role="group" aria-label="{{ ui.language }}">
+        <a href="{{ '/zh/' | relative_url }}?lang=zh" target="_self" lang="zh-CN" hreflang="zh-CN" data-language-switch="zh"{% if page.lang == 'zh' %} aria-current="true"{% endif %}>中文</a>
+        <span aria-hidden="true">/</span>
+        <a href="{{ '/' | relative_url }}?lang=en" target="_self" lang="en" hreflang="en" data-language-switch="en"{% if page.lang == 'en' %} aria-current="true"{% endif %}>EN</a>
+      </div>
+      {% endif %}
     </div>
   </div>
 </div>
