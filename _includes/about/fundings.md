@@ -1,3 +1,3 @@
-# 💰 Fundings
+# 💰 Funding
 {: id="-fundings"}
-- **国家自然科学基金青年学生基础研究项目（博士研究生）**          面向全基因组的大规模多物种基因组比对研究
+- **NSFC Basic Research Program for Young Students (Doctoral Students)**: Large-scale Multispecies Whole-genome Alignment

@@ -6,13 +6,12 @@
 {% assign url = gsDataBaseUrl | append: "google-scholar-stats/gs_data_shieldsio.json" %}
 
 <span class='anchor' id='about-me'></span>
-# 🙋🏼About Me
-Hello! I am Pinglu Zhang (张平路), Phd at the &nbsp;<img src="{{ '/images/uestc.jpg' | relative_url }}" style='height: 1.5em;'>&nbsp; [Institute of Fundamental and Frontier Sciences (IFFS)](https://www.iffs.uestc.edu.cn/), [University of Electronic Science and Technology of China (UESTC)](https://www.uestc.edu.cn) (电子科技大学，基础与前沿研究院), majoring in Computer Science and Technology.
+# 🙋🏼 About Me
+{: id="about-me"}
+I am Pinglu Zhang, a PhD student in Computer Science and Technology at the [Institute of Fundamental and Frontier Sciences](https://www.iffs.uestc.edu.cn/), [University of Electronic Science and Technology of China (UESTC)](https://www.uestc.edu.cn), supervised by [Prof. Quan Zou](http://lab.malab.cn/~zq/). I am also undertaking joint doctoral training at [Zhongguancun Academy](https://www.bjzgca.edu.cn/).
 
-I am also part of a joint training program (联合培养) at the &nbsp;<img src="{{ '/images/zgc.jpg' | relative_url }}" style='height: 1.6em;'>&nbsp; [Zhongguancun Academy](https://www.bjzgca.edu.cn/)(北京中关村学院).
+At the [Malab laboratory](http://123.57.240.48/forum.php?mod=viewthread&tid=8672), I work on [sequence alignment](http://lab.malab.cn/~cjt/MSA/), with a focus on large-scale multiple sequence alignment, multiple-genome alignment, and centromeric sequence alignment. <a href='https://scholar.google.com/citations?user=T70BtHMAAAAJ&hl=en'><img src="https://img.shields.io/endpoint?url={{ url | url_encode }}&logo=Google%20Scholar&labelColor=f6f6f6&color=9cf&style=flat&label=citations" alt="Google Scholar citations"></a>
 
-I am conducting research on [Sequence Alignment](http://lab.malab.cn/~cjt/MSA/) at the [Malab](http://123.57.240.48/forum.php?mod=viewthread&tid=8672) laboratory under the supervision of [Prof. Quan Zou](http://lab.malab.cn/~zq/) (邹权教授). My work focuses on developing multiple sequence alignment for large-scale data, mulitiple genome alignment, centromere region alignment, and related topics <a href='https://scholar.google.com/citations?user=T70BtHMAAAAJ&hl'><img src="https://img.shields.io/endpoint?url={{ url | url_encode }}&logo=Google%20Scholar&labelColor=f6f6f6&color=9cf&style=flat&label=citations"></a>. 
-
-Researchers interested in collaboration are welcome to contact me at [zpl010720@gmail.com](mailto:zpl010720@gmail.com).
+For research discussions or collaboration, please contact me at [**zpl010720@gmail.com**](mailto:zpl010720@gmail.com).
 
 [**Download CV (PDF)**]({{ '/cv/Pinglu_Zhang_Academic_CV.pdf' | relative_url }})

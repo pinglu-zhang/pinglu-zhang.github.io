@@ -13,7 +13,7 @@
       </nav>
       {% if page.bilingual %}
       <div class="language-switch" role="group" aria-label="{{ ui.language }}">
-        <a href="{{ '/zh/' | relative_url }}?lang=zh" target="_self" lang="zh-CN" hreflang="zh-CN" data-language-switch="zh"{% if page.lang == 'zh' %} aria-current="true"{% endif %}>中文</a>
+        <a href="{{ '/zh/' | relative_url }}?lang=zh" target="_self" lang="{{ ui.html_lang }}" hreflang="zh-CN" data-language-switch="zh"{% if page.lang == 'zh' %} aria-current="true"{% endif %}>{{ ui.chinese_language }}</a>
         <span aria-hidden="true">/</span>
         <a href="{{ '/' | relative_url }}?lang=en" target="_self" lang="en" hreflang="en" data-language-switch="en"{% if page.lang == 'en' %} aria-current="true"{% endif %}>EN</a>
       </div>

@@ -4,11 +4,16 @@ en:
   home: Homepage
   about: About Me
   news: News
-  funding: Fundings
+  funding: Funding
   publications: Publications
   awards: Awards
-  education: Educations
-  description: Phd Student in UESTC. Focus on Sequence Alignment.
+  education: Education
+  description: PhD student at UESTC
+  site_title: Pinglu Zhang
+  chinese_language: Chinese
+  cas_zone_1: CAS Zone 1
+  cas_zone_2: CAS Zone 2
+  cas_zone_3: CAS Zone 3
   location: Beijing, China
   email: Email
   scholar: Google Scholar
@@ -27,7 +32,12 @@ zh:
   publications: 论文发表
   awards: 荣誉奖励
   education: 教育经历
-  description: 电子科技大学博士生，主要研究序列比对。
+  description: 电子科技大学 · 博士研究生
+  site_title: Pinglu Zhang (张平路)
+  chinese_language: 中文
+  cas_zone_1: 中科院1区
+  cas_zone_2: 中科院2区
+  cas_zone_3: 中科院3区
   location: 中国，北京
   email: 邮箱
   scholar: 谷歌学术

@@ -268,3 +268,84 @@
     display: none;
   }
 }
+
+/* Keep the four mobile contact links together without changing the desktop sidebar. */
+@media (max-width: 924.98px) {
+  .profile_box {
+    display: grid;
+    grid-template-columns: 75px minmax(0, 1fr) 200px;
+    column-gap: 12px;
+    align-items: center;
+
+    > .author__avatar {
+      display: block;
+      width: 75px;
+
+      img {
+        display: block;
+        width: 75px;
+        height: 75px;
+        object-fit: cover;
+      }
+    }
+
+    > .author__content {
+      display: block;
+      min-width: 0;
+      padding-left: 0;
+    }
+
+    > .author__urls-wrapper {
+      display: block;
+      margin-left: 0;
+      justify-self: end;
+      cursor: default;
+    }
+  }
+
+  .author__urls_sm {
+    display: grid;
+    grid-template-columns: repeat(4, 44px);
+    gap: 8px;
+    padding: 0;
+    font-size: 22px;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      line-height: 1;
+
+      &:focus-visible {
+        outline: 2px solid $link-color;
+        outline-offset: 2px;
+        border-radius: 2px;
+      }
+    }
+  }
+}
+
+@media (max-width: 599.98px) {
+  .profile_box {
+    grid-template-columns: 75px minmax(0, 1fr);
+    row-gap: 8px;
+
+    > .author__avatar {
+      grid-column: 1;
+      grid-row: 1 / 3;
+    }
+
+    > .author__content {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    > .author__urls-wrapper {
+      grid-column: 2;
+      grid-row: 2;
+      justify-self: start;
+    }
+  }
+}

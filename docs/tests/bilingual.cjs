@@ -1,6 +1,7 @@
 // Run after `bundle exec jekyll build` and starting a local static server.
 // Requires Playwright + a Chromium browser. Example:
 // PREVIEW_URL=http://localhost:4000 node docs/tests/bilingual.cjs
+// Optional: POLISH_BASELINE=docs/previews/2026-10-26-polish/baseline.json
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -8,12 +9,25 @@ const { chromium } = require('playwright');
 
 const origin = process.env.PREVIEW_URL || 'http://localhost:4000';
 const repo = path.resolve(__dirname, '../..');
+const polishBaseline = process.env.POLISH_BASELINE
+  ? JSON.parse(fs.readFileSync(process.env.POLISH_BASELINE, 'utf8')) : null;
 const paperIds = [...fs.readFileSync(path.join(repo, '_site/index.html'), 'utf8')
   .matchAll(/class=['"]show_paper_citations['"] data=['"]([^'"]+)/g)].map(m => m[1]);
 const expectedSections = ['about-me', '-news', '-fundings', '-publications', '-awards', '-educations'];
 const localFailures = [];
 const jsErrors = [];
 let passed = 0;
+
+function publicationMetadata(publications) {
+  return publications.map(({ id, text, links }) => ({
+    id, links,
+    // Normalize translated labels and their adjacent comma, retaining each CAS
+    // zone number, all bibliographic text, author markers and link order.
+    text: text.replace(/\b(?:Paper|Code)\b|论文|代码/g, '')
+      .replace(/，(?=\s*(?:中科院[123]区|CAS Zone [123]))/g, ',')
+      .replace(/中科院([123])区/g, 'CAS Zone $1').replace(/\s+/g, '')
+  }));
+}
 
 async function main() {
   const browser = await chromium.launch({ headless: true, channel: process.env.BROWSER_CHANNEL || 'msedge' });
@@ -53,6 +67,48 @@ async function main() {
   }
   async function check(name, test) {
     await test(); passed++; console.log('PASS ' + name);
+  }
+  async function profileLayout(page, width, language) {
+    const label = language + ' at ' + width + 'px';
+    const mobile = page.locator('.author__urls_sm');
+    const desktop = page.locator('.author__urls');
+    if (width >= 925) {
+      assert.ok(await desktop.isVisible(), label + ': desktop contact information must be visible');
+      assert.ok(!(await mobile.isVisible()), label + ': mobile contacts must be hidden');
+      return;
+    }
+    assert.ok(await mobile.isVisible(), label + ': mobile contacts must be visible');
+    assert.ok(!(await desktop.isVisible()), label + ': desktop contact information must be hidden');
+    const contacts = mobile.locator('a');
+    assert.equal(await contacts.count(), 4, label + ': all four contact links must be present');
+    const boxes = [];
+    for (let index = 0; index < 4; index++) {
+      const link = contacts.nth(index);
+      assert.ok(await link.isVisible(), label + ': contact ' + index + ' must be visible');
+      const box = await link.boundingBox();
+      assert.ok(box && box.width >= 43.5 && box.height >= 43.5, label + ': contact hit areas must be at least 44px');
+      assert.ok(box.x >= -0.5 && box.x + box.width <= width + 0.5, label + ': contacts must remain inside the viewport');
+      if (index) {
+        assert.ok(Math.abs(box.y - boxes[0].y) <= 1, label + ': contacts must share one row');
+        assert.ok(boxes[index - 1].x + boxes[index - 1].width <= box.x + 0.5, label + ': contact targets must not overlap');
+      }
+      boxes.push(box);
+    }
+    const avatar = await page.locator('.profile_box > .author__avatar').boundingBox();
+    const names = await page.locator('.profile_box > .author__content').boundingBox();
+    assert.ok(avatar && names, label + ': avatar and names must be visible');
+    assert.ok(avatar.x + avatar.width <= names.x + 0.5, label + ': avatar must remain to the left of the names');
+    if (width < 600) {
+      assert.ok(names.y + names.height <= boxes[0].y + 0.5, label + ': contacts must be below the names');
+      assert.ok(avatar.x + avatar.width <= boxes[0].x + 0.5, label + ': contacts must stay to the right of the avatar');
+      assert.ok(avatar.y < names.y + names.height && avatar.y + avatar.height > boxes[0].y,
+        label + ': avatar must span both profile rows');
+    } else {
+      assert.ok(names.x + names.width <= boxes[0].x + 0.5, label + ': names and contacts must not overlap');
+      const center = box => box.y + box.height / 2;
+      assert.ok(Math.abs(center(avatar) - center(names)) <= 1 && Math.abs(center(avatar) - center(boxes[0])) <= 1,
+        label + ': avatar, names and contacts must share a horizontal row');
+    }
   }
   try {
     assert.equal(paperIds.length, 17);
@@ -143,6 +199,41 @@ async function main() {
       await page.goto(origin + '/?lang=' + language); await atLanguage(page, language);
       for (const id of expectedSections) assert.ok(await page.locator('[id="' + id + '"]').count());
       assert.equal(await page.locator('.page__content h1').count(), 6);
+      const introduction = await page.locator('.page__content').evaluate(content => {
+        const nodes = [];
+        for (let node = content.querySelector('h1').nextElementSibling; node && node.tagName !== 'H1'; node = node.nextElementSibling) nodes.push(node);
+        return {
+          paragraphs: nodes.filter(node => node.tagName === 'P').map(node => node.textContent.trim()),
+          logos: nodes.reduce((count, node) => count + node.querySelectorAll('img[src*="/images/uestc.jpg"],img[src*="/images/zgc.jpg"]').length, 0),
+          inlineBadge: !!nodes.filter(node => node.tagName === 'P')[1]?.querySelector('img[src*="img.shields.io/endpoint"]')
+        };
+      });
+      assert.equal(introduction.logos, 0, language + ': institutional logos must not interrupt the introduction');
+      assert.ok(introduction.inlineBadge, language + ': the citation badge must follow the research introduction in the same paragraph');
+      assert.equal(await page.locator('[data-language-switch="zh"]').textContent(), language === 'en' ? 'Chinese' : '中文');
+      assert.equal(await page.locator('[data-language-switch="en"]').textContent(), 'EN');
+      const names = await page.locator('.author__name').allTextContents();
+      if (language === 'en') {
+        const englishText = await page.evaluate(() => {
+          const body = document.body.cloneNode(true);
+          body.querySelectorAll('script,style').forEach(node => node.remove());
+          return [body.textContent, document.title,
+            ...[...document.querySelectorAll('meta[name="description"],meta[property^="og:"],meta[name^="twitter:"]')].map(node => node.content),
+            ...[...document.querySelectorAll('[alt],[title],[aria-label]')].flatMap(node => ['alt', 'title', 'aria-label'].map(attribute => node.getAttribute(attribute) || ''))
+          ].join('\n');
+        });
+        assert.doesNotMatch(englishText, /\p{Script=Han}/u, 'English content, hidden navigation, metadata and accessible labels must contain no Chinese');
+        assert.equal(await page.title(), 'Pinglu Zhang - Homepage');
+        assert.deepEqual(names, ['Pinglu Zhang']);
+        assert.equal(await page.locator('img[src*="/images/uestc.jpg"],img[src*="/images/zgc.jpg"]').count(), 0,
+          'English education and introduction must not display the Chinese institutional logos');
+      } else {
+        assert.deepEqual(names, ['Pinglu Zhang', '张平路']);
+        assert.deepEqual(introduction.paragraphs.slice(0, 2), [
+          '我是张平路，电子科技大学基础与前沿研究院计算机科学与技术专业博士研究生，师从邹权教授。目前在北京中关村学院联合培养。',
+          '我在 Malab 实验室从事序列比对研究，主要关注大规模多序列比对、多基因组比对和着丝粒区域比对。'
+        ], 'The Chinese introduction must retain the approved two-paragraph copy');
+      }
       const stats = page.locator('.show_paper_citations');
       await stats.nth(16).filter({ hasText: language === 'zh' ? '引用次数: 15' : 'Citations: 15' }).waitFor();
       assert.equal(await stats.first().textContent(), '');
@@ -154,6 +245,11 @@ async function main() {
         return { id: el.getAttribute('data'), links: [...block.querySelectorAll('a')].map(a => a.getAttribute('href')),
           text: clone.textContent.replace(/Paper|Code|论文|代码/g, '').replace(/\s+/g, ' ').trim() };
       }));
+      if (polishBaseline) {
+        assert.equal(polishBaseline[language].publications.length, 17, 'The saved baseline must contain all 17 publications');
+        assert.deepEqual(publicationMetadata(data[language]), publicationMetadata(polishBaseline[language].publications),
+          language + ': publication text, author markers, IDs and links must match the pre-polish baseline');
+      }
       const cv = page.locator('.page__content a[href="/cv/Pinglu_Zhang_Academic_CV.pdf"]');
       assert.equal(await cv.count(), 1);
       assert.equal((await page.request.get(origin + await cv.getAttribute('href'))).status(), 200);
@@ -176,9 +272,10 @@ async function main() {
       }
       await ctx.close();
     });
-    assert.deepEqual(data.en, data.zh, 'Both languages must share all publication metadata in the same order');
+    assert.deepEqual(publicationMetadata(data.en), publicationMetadata(data.zh),
+      'Both languages must share all publication metadata and CAS zone numbers in the same order');
 
-    for (const width of [320, 390, 768, 1024, 1440]) await check('Navigation and switch at ' + width + 'px', async () => {
+    for (const width of [320, 390, 600, 768, 924, 925, 926, 1024, 1440]) await check('Navigation, profile and switch at ' + width + 'px', async () => {
       const ctx = await context({ viewport: { width, height: 900 } }); const page = await ctx.newPage();
       await page.goto(origin); await atLanguage(page, 'en');
       for (const language of ['zh', 'en']) {
@@ -186,6 +283,19 @@ async function main() {
         const box = await link.boundingBox(); assert.ok(box && box.x >= 0 && box.x + box.width <= width);
         await link.click(); await atLanguage(page, language);
         assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+        await page.evaluate(() => window.scrollTo(0, 0));
+        const switchBox = await page.locator('.language-switch').boundingBox();
+        const navigationBox = await page.locator('#site-nav').boundingBox();
+        assert.ok(switchBox && navigationBox && switchBox.x >= 0 && switchBox.x + switchBox.width <= width + 0.5,
+          language + ': the complete language switch must fit the viewport');
+        assert.ok(navigationBox.x + navigationBox.width <= switchBox.x + 0.5,
+          language + ': the language switch must not overlap the navigation');
+        for (const switchLink of await page.locator('[data-language-switch]').all()) {
+          const target = await switchLink.boundingBox();
+          assert.ok(target && target.width >= 43.5 && target.height >= 43.5, 'Language links must retain 44px touch targets');
+          assert.ok(await switchLink.evaluate(node => node.scrollWidth <= node.clientWidth), 'Language labels must not clip');
+        }
+        await profileLayout(page, width, language);
       }
       const menu = page.locator('#site-nav button');
       if (await menu.isVisible()) {

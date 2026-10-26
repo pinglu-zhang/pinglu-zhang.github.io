@@ -1,7 +1,7 @@
 ---
 permalink: /zh/
 title: ""
-excerpt: "电子科技大学博士生张平路的个人学术主页，主要研究序列比对。"
+excerpt: "张平路的个人学术主页，介绍序列比对相关研究、论文成果与教育经历。"
 lang: zh
 bilingual: true
 author_profile: true

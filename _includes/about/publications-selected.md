@@ -15,9 +15,9 @@
 
 **Pinglu Zhang**<sup>†</sup>, Tong Zhou<sup>†</sup>, Yanming Wei, Qinzhong Tian, Yixiao Zhai, Yizheng Wang, Quan Zou, Furong Tang\*, Ximei Luo\*
 
-**Genome Biology, 2025, 中科院1区, IF2025=9.4**
+**Genome Biology, 2025, {{ ui.cas_zone_1 }}, IF2025=9.4**
 
-[**{{ ui.paper }}**](https://github.com/pinglu-zhang/pinglu-zhang.github.io/blob/main/paper/HAlign-G.pdf)   [**{{ ui.code }}**](https://github.com/malabz/HAlign-G)   <strong><span class='show_paper_citations' data='T70BtHMAAAAJ:Y0pCki6q_DkC'></span></strong>
+<span class="publication-actions" markdown="span">[{{ ui.paper }}](https://github.com/pinglu-zhang/pinglu-zhang.github.io/blob/main/paper/HAlign-G.pdf) [{{ ui.code }}](https://github.com/malabz/HAlign-G) <span class='show_paper_citations' data='T70BtHMAAAAJ:Y0pCki6q_DkC'></span></span>
 
 {% if page.lang == 'zh' %}
 {% include about-zh/halign-g-description.md %}
@@ -45,9 +45,9 @@
 
 **Pinglu Zhang**, Yanming Wei, Qinzhong Tian, Quan Zou, Yansu Wang\*
 
-**Genome Research, 2025, 中科院1区, nature index journal, IF2024=6.24.** 
+**Genome Research, 2025, {{ ui.cas_zone_1 }}, nature index journal, IF2024=6.24.**
 
-[**{{ ui.paper }}**](https://github.com/pinglu-zhang/pinglu-zhang.github.io/blob/main/paper/RaMA.pdf)&nbsp;&nbsp;[**{{ ui.code }}**](https://github.com/pinglu-zhang/RaMA)&nbsp;&nbsp;<strong><span class='show_paper_citations' data='T70BtHMAAAAJ:qjMakFHDy7sC'></span></strong>
+<span class="publication-actions" markdown="span">[{{ ui.paper }}](https://github.com/pinglu-zhang/pinglu-zhang.github.io/blob/main/paper/RaMA.pdf) [{{ ui.code }}](https://github.com/pinglu-zhang/RaMA) <span class='show_paper_citations' data='T70BtHMAAAAJ:qjMakFHDy7sC'></span></span>
 
 {% if page.lang == 'zh' %}
 {% include about-zh/rama-description.md %}
@@ -75,9 +75,9 @@
 
 **Pinglu Zhang**, Huan Liu, Yanming Wei, Yixiao Zhai, Qinzhong Tian, Quan Zou\*
 
-**Bioinformatics, 2024, 中科院3区, CCF-B, IF2024=4.4.** 
+**Bioinformatics, 2024, {{ ui.cas_zone_3 }}, CCF-B, IF2024=4.4.**
 
-[**{{ ui.paper }}**](https://github.com/pinglu-zhang/pinglu-zhang.github.io/blob/main/paper/FMAlign2.pdf)&nbsp;&nbsp;[**{{ ui.code }}**](https://github.com/malabz/FMAlign2)&nbsp;&nbsp;<strong><span class='show_paper_citations' data='T70BtHMAAAAJ:u-x6o8ySG0sC'></span></strong>
+<span class="publication-actions" markdown="span">[{{ ui.paper }}](https://github.com/pinglu-zhang/pinglu-zhang.github.io/blob/main/paper/FMAlign2.pdf) [{{ ui.code }}](https://github.com/malabz/FMAlign2) <span class='show_paper_citations' data='T70BtHMAAAAJ:u-x6o8ySG0sC'></span></span>
 
 {% if page.lang == 'zh' %}
 {% include about-zh/fmalign2-description.md %}

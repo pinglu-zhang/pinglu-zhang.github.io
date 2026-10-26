@@ -8,7 +8,7 @@ main:
     key: news
     url: "/#-news"
 
-  - title: "Fundings"
+  - title: "Funding"
     key: funding
     url: "/#-fundings"
 
@@ -20,7 +20,7 @@ main:
     key: awards
     url: "/#-awards"
 
-  - title: "Educations"
+  - title: "Education"
     key: education
     url: "/#-educations"
 

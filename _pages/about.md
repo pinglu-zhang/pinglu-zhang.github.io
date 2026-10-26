@@ -1,7 +1,7 @@
 ---
 permalink: /
 title: ""
-excerpt: ""
+excerpt: "Pinglu Zhang's academic homepage, featuring research on sequence alignment, publications, and education."
 author_profile: true
 lang: en
 bilingual: true
