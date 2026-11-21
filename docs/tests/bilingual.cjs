@@ -62,7 +62,7 @@ async function main() {
   async function atLanguage(page, language) {
     await page.waitForURL(url => url.pathname === (language === 'zh' ? '/zh/' : '/'));
     await page.waitForFunction(lang => document.documentElement.lang === lang &&
-      document.querySelectorAll('.show_paper_citations').length === 17, language === 'zh' ? 'zh-CN' : 'en');
+      document.querySelectorAll('.show_paper_citations').length === 18, language === 'zh' ? 'zh-CN' : 'en');
     await page.waitForLoadState('load');
   }
   async function check(name, test) {
@@ -111,7 +111,7 @@ async function main() {
     }
   }
   try {
-    assert.equal(paperIds.length, 17);
+    assert.equal(paperIds.length, 18);
     const cases = [
       ['Chinese browser', { languages: ['zh-CN'] }, '/', 'zh'],
       ['Traditional Chinese preference uses Simplified Chinese', { languages: ['zh-TW'] }, '/', 'zh'],
@@ -235,7 +235,7 @@ async function main() {
         ], 'The Chinese introduction must retain the approved two-paragraph copy');
       }
       const stats = page.locator('.show_paper_citations');
-      await stats.nth(16).filter({ hasText: language === 'zh' ? '引用次数: 15' : 'Citations: 15' }).waitFor();
+      await stats.nth(17).filter({ hasText: language === 'zh' ? '引用次数: 16' : 'Citations: 16' }).waitFor();
       assert.equal(await stats.first().textContent(), '');
       assert.match(await stats.nth(1).textContent(), /: 0$/);
       data[language] = await stats.evaluateAll(elements => elements.map(el => {
@@ -246,7 +246,7 @@ async function main() {
           text: clone.textContent.replace(/Paper|Code|论文|代码/g, '').replace(/\s+/g, ' ').trim() };
       }));
       if (polishBaseline) {
-        assert.equal(polishBaseline[language].publications.length, 17, 'The saved baseline must contain all 17 publications');
+        assert.equal(polishBaseline[language].publications.length, 18, 'The saved baseline must contain all 18 publications');
         assert.deepEqual(publicationMetadata(data[language]), publicationMetadata(polishBaseline[language].publications),
           language + ': publication text, author markers, IDs and links must match the pre-polish baseline');
       }
@@ -308,7 +308,7 @@ async function main() {
     });
     assert.deepEqual(localFailures, [], 'No local asset failures');
     assert.deepEqual(jsErrors, [], 'No browser script errors');
-    console.log(`All ${passed} bilingual checks passed; 17 shared publications verified.`);
+    console.log(`All ${passed} bilingual checks passed; 18 shared publications verified.`);
   } finally { await browser.close(); }
 }
 main().catch(error => { console.error(error); process.exitCode = 1; });
