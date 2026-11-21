@@ -8,7 +8,7 @@
 <span class='anchor' id='about-me'></span>
 # 🙋🏼 About Me
 {: id="about-me"}
-I am Pinglu Zhang, a PhD student in Computer Science and Technology at the [Institute of Fundamental and Frontier Sciences](https://www.iffs.uestc.edu.cn/), [University of Electronic Science and Technology of China (UESTC)](https://www.uestc.edu.cn), supervised by [Prof. Quan Zou](http://lab.malab.cn/~zq/). I am also undertaking joint doctoral training at [Zhongguancun Academy](https://www.bjzgca.edu.cn/).
+I am Pinglu Zhang, a PhD student in Computer Science and Technology at the [Institute of Fundamental and Frontier Sciences](https://www.iffs.uestc.edu.cn/), [University of Electronic Science and Technology of China (UESTC)](https://www.uestc.edu.cn), supervised by [Prof. Quan Zou](http://lab.malab.cn/~zq/). I am also undertaking joint doctoral training at [Zhongguancun Academy](https://www.bza.edu.cn/).
 
 At the [Malab laboratory](http://123.57.240.48/forum.php?mod=viewthread&tid=8672), I work on [sequence alignment](http://lab.malab.cn/~cjt/MSA/), with a focus on large-scale multiple sequence alignment, multiple-genome alignment, and centromeric sequence alignment. <a href='https://scholar.google.com/citations?user=T70BtHMAAAAJ&hl=en'><img src="https://img.shields.io/endpoint?url={{ url | url_encode }}&logo=Google%20Scholar&labelColor=f6f6f6&color=9cf&style=flat&label=citations" alt="Google Scholar citations"></a>
 
