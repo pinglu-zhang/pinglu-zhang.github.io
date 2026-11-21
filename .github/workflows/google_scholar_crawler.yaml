@@ -39,7 +39,8 @@ jobs:
           path: citation-data
       - name: Refresh citation data
         env:
-          GOOGLE_SCHOLAR_ID: ${{ secrets.GOOGLE_SCHOLAR_ID || 'T70BtHMAAAAJ' }}
+          # This public profile ID is not a credential; do not use the legacy secret.
+          GOOGLE_SCHOLAR_ID: 'T70BtHMAAAAJ'
         run: python google_scholar_crawler/main.py --previous citation-data/gs_data.json --output-dir citation-data
       - name: Publish validated data
         working-directory: citation-data
