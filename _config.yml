@@ -4,7 +4,7 @@ description              : "Phd Student in UESTC. Focus on Sequence Alignment."
 repository               : "pinglu-zhang/pinglu-zhang.github.io"
 url                      : "https://pinglu-zhang.github.io"
 baseurl                  : ""
-google_scholar_stats_use_cdn : true
+google_scholar_stats_use_cdn : false
 
 # google analytics
 google_analytics_id      : ""  # get google_analytics_id from https://analytics.google.com/analytics/
