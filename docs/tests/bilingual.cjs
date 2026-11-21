@@ -44,7 +44,7 @@ async function main() {
       if (route.request().url().endsWith('/gs_data.json')) {
         // Deliberately omit one entry: a missing paper must not break subsequent counts.
         const publications = Object.fromEntries(paperIds.slice(1).map((id, i) => [id, { num_citations: i }]));
-        return route.fulfill({ json: { publications } });
+        return route.fulfill({ json: { citedby: 245, publications } });
       }
       if (route.request().resourceType() === 'image') return route.fulfill({
         contentType: 'image/svg+xml', body: '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"/>'
@@ -205,11 +205,16 @@ async function main() {
         return {
           paragraphs: nodes.filter(node => node.tagName === 'P').map(node => node.textContent.trim()),
           logos: nodes.reduce((count, node) => count + node.querySelectorAll('img[src*="/images/uestc.jpg"],img[src*="/images/zgc.jpg"]').length, 0),
-          inlineBadge: !!nodes.filter(node => node.tagName === 'P')[1]?.querySelector('img[src*="img.shields.io/endpoint"]')
+          inlineBadge: !!nodes.filter(node => node.tagName === 'P')[1]?.querySelector('img[src*="img.shields.io/"]')
         };
       });
       assert.equal(introduction.logos, 0, language + ': institutional logos must not interrupt the introduction');
       assert.ok(introduction.inlineBadge, language + ': the citation badge must follow the research introduction in the same paragraph');
+      const badge = page.locator('.page__content img[src*="img.shields.io/"]');
+      await page.waitForFunction(() => document.querySelector('.page__content img[src*="img.shields.io/"]').src.includes('/badge/citations-245-'));
+      const badgeUrl = new URL(await badge.getAttribute('src'));
+      assert.equal(badgeUrl.searchParams.has('url'), false, 'Live badge must not depend on the stale endpoint cache');
+      assert.equal(badgeUrl.searchParams.get('label'), language === 'zh' ? '引用次数' : 'citations');
       assert.equal(await page.locator('[data-language-switch="zh"]').textContent(), language === 'en' ? 'Chinese' : '中文');
       assert.equal(await page.locator('[data-language-switch="en"]').textContent(), 'EN');
       const names = await page.locator('.author__name').allTextContents();
