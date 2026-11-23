@@ -1,8 +1,8 @@
 {
   "scholar_id": "T70BtHMAAAAJ",
   "name": "Pinglu Zhang (张平路)",
-  "citedby": 245,
-  "citedby5y": 245,
+  "citedby": 243,
+  "citedby5y": 243,
   "hindex": 7,
   "hindex5y": 7,
   "i10index": 6,
@@ -177,7 +177,7 @@
         "citation": "Genome Biology and Evolution 16 (5), evae102 , 2024",
         "pub_year": "2024"
       },
-      "num_citations": 34
+      "num_citations": 33
     },
     "T70BtHMAAAAJ:d1gkVwhDpl0C": {
       "author_pub_id": "T70BtHMAAAAJ:d1gkVwhDpl0C",
@@ -207,8 +207,8 @@
         "citation": "Information Processing & Management 60 (2), 103229 , 2023",
         "pub_year": "2023"
       },
-      "num_citations": 108
+      "num_citations": 107
     }
   },
-  "updated": "2026-11-21T09:34:06+00:00"
+  "updated": "2026-11-23T20:19:10+00:00"
 }
